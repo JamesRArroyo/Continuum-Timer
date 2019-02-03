@@ -1,0 +1,67 @@
+<content class="wrapper">
+  <div class="main white" *ngIf="!loading">
+
+    <!-- Report Header -->
+    <div class="report-header">
+      <h1 class="title">Activity Report</h1>
+    </div>
+
+    <!-- Report Filters -->
+    <app-filter-bar buttonText="Generate Report" [startDate]="filters.startDate" [endDate]="filters.endDate" (filters)="generateReport($event)"></app-filter-bar>
+
+    <!-- Report Body -->
+    <div class="report-body">
+
+      <!-- Leader List -->
+      <div class="leader-list">
+        <div class="contestant" *ngFor="let userTime of timeByUser">
+          <div class="header">
+            <h2>{{secondsToDecimalHours(userTime.totalTime)}}</h2>
+          </div>
+          <app-avatar class="center-image" [image]="userTime.user.avatarUrl" [active]="userTime.activeTimer" route="/reports/summary"
+            [routeQueryParams]="{filter: true, userId: userTime.user.id}">
+            <h2>{{getInitials(userTime.user.name)}}</h2>
+          </app-avatar>
+          <div class="footer">{{userTime.user.name}}</div>
+        </div>
+      </div>
+
+      <!-- Descriptions by Day -->
+      <div class="descriptions">
+        <mat-accordion *ngFor="let day of timeByDay">
+          <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <h2>{{day.day}}</h2>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="mat-expansion-body">
+              <mat-list-item *ngFor="let userTime of day.timeByUser">
+                <div class="user">
+                  <div class="user-info">
+                    <app-avatar class="center-image" [image]="userTime.user.avatarUrl" [active]="userTime.activeTimer" route="/reports/summary"
+                      [routeQueryParams]="{filter: true, userId: userTime.user.id}">
+                      <h2>{{getInitials(userTime.user.name)}}</h2>
+                    </app-avatar>
+                    <h4 mat-line>{{userTime.user.name}}</h4>
+                  </div>
+                  <div class="user-time">
+
+                    <h2>{{secondsToDecimalHours(userTime.totalTime)}}</h2>
+                  </div>
+                  <div class="user-description" [innerHTML]="concatTimeDescriptions(userTime.entries)"></div>
+                </div>
+
+              </mat-list-item>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+
+    </div>
+
+  </div>
+</content>
+
+<app-loading *ngIf="loading" label="Generating..."></app-loading>

@@ -1,0 +1,24 @@
+<content class="">
+  <div class="header">
+    <h3>Review: {{timer.title}}</h3>
+  </div>
+  <div class="form-body">
+    <form [formGroup]="timerForm" class="form-container example-container">
+      <div *ngFor="let date of timerDates">
+        <mat-form-field appearance="outline" class="notes">
+          <textarea [formControlName]="date" matInput matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
+          <mat-label>
+            <i class="fab fa-gitlab fa-1x"></i>&nbsp;
+            <i>Notes - {{date}}</i>
+          </mat-label>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="footer">
+    <button mat-raised-button color="primary" (click)="finishTimer()">Save and Complete</button>
+    <button mat-raised-button (click)="dismiss()">Cancel</button>
+  </div>
+</content>

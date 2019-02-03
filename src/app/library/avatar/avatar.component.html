@@ -1,0 +1,11 @@
+<div>
+  <a [routerLink]="route" [queryParams]="routeQueryParams">
+    <!-- Image -->
+    <img *ngIf="image" [ngClass]="{'grayed-out': !active}" class="img" [src]="image">
+
+    <!-- Button w/ text -->
+    <button *ngIf="!image" [ngClass]="{'grayed-out': !active}" class="circle-size" mat-fab color="accent">
+      <ng-content></ng-content>
+    </button>
+  </a>
+</div>

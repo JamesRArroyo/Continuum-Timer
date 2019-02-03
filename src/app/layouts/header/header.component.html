@@ -1,0 +1,73 @@
+<mat-toolbar color="accent">
+  <mat-toolbar-row class="wrapper">
+    <div class="logo">
+      <img src="assets/logo/logo_continuum.png" alt="logo">
+      <h1>{{appName}}</h1>
+    </div>
+
+    <!-- Nav Links-->
+    <div class="nav-links">
+      <button mat-button routerLink="/">
+        <mat-icon role="img" aria-hidden="true">timer</mat-icon>
+        Timers
+      </button>
+
+      <button mat-button aria-haspopup="true" [matMenuTriggerFor]="reportsMenu">
+        <span class="mat-button-wrapper">
+          <div class="menu-button">
+            <mat-icon role="img" aria-hidden="true" style="display: block;">equalizer</mat-icon>
+            Reports
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </div>
+        </span>
+      </button>
+      <mat-menu #reportsMenu="matMenu">
+        <button mat-menu-item routerLink="/reports/summary">
+          <mat-icon role="img" aria-hidden="true">import_contacts</mat-icon>
+          Summary Report</button>
+        <button mat-menu-item routerLink="/reports/activity">
+          <mat-icon role="img" aria-hidden="true">graphic_eq</mat-icon>
+          Activity Report</button>
+      </mat-menu>
+    </div>
+    <div class="nav-links-mobile">
+      <button mat-button [matMenuTriggerFor]="navMenu">
+        <mat-icon role="img" aria-hidden="true" style="display: block;">menu</mat-icon>
+      </button>
+      <mat-menu #navMenu="matMenu">
+        <button mat-menu-item routerLink="/">
+          <mat-icon role="img" aria-hidden="true">timer</mat-icon>
+          Timers
+        </button>
+        <button mat-menu-item routerLink="/reports/summary">
+          <mat-icon role="img" aria-hidden="true">import_contacts</mat-icon>
+          Summary Report</button>
+        <button mat-menu-item routerLink="/reports/activity">
+          <mat-icon role="img" aria-hidden="true">graphic_eq</mat-icon>
+          Activity Report</button>
+      </mat-menu>
+    </div>
+
+    <div class="header-menu">
+      <button mat-button aria-haspopup="true" [matMenuTriggerFor]="settingsMenu">
+        <span class="mat-button-wrapper">
+          <div class="menu-button">
+            <mat-icon role="img" aria-hidden="true" style="display: block;">person</mat-icon>
+            <span class="user-name">{{user.name}}</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </div>
+        </span>
+      </button>
+      <mat-menu #settingsMenu="matMenu">
+        <button mat-menu-item routerLink="/users/profile">
+          <mat-icon role="img" aria-hidden="true">face</mat-icon>
+          Profile Settings</button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon role="img" aria-hidden="true">exit_to_app</mat-icon>
+          Log Out</button>
+      </mat-menu>
+    </div>
+
+
+  </mat-toolbar-row>
+</mat-toolbar>

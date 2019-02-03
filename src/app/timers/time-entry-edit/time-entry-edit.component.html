@@ -1,0 +1,59 @@
+<content>
+  <div *ngIf="!showDelete">
+    <div class="header">
+      <h3 class="h-title">Edit Time Entry</h3>
+      <mat-chip class="h-chip" selected="true">
+        <i class="fas fa-clock fa-1x"></i>&nbsp;
+        <h3 [matTooltip]="timeEntry?.id" matTooltipPosition="above" matTooltipShowDelay="3000">{{entryDuration | secondsToTime}}</h3>
+      </mat-chip>
+    </div>
+    <div class="form-body">
+      <form [formGroup]="entryEditForm">
+
+        <mat-form-field>
+          <input matInput [max]="entryEditForm.value.endTime" [owlDateTime]="dtStart" placeholder="Start Date" formControlName="startTime"
+            (input)="dateInputChange($event.target.value)" required>
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" [owlDateTimeTrigger]="dtStart">
+            <mat-icon>calendar_today</mat-icon>
+          </button>
+          <owl-date-time (afterPickerClosed)="dateInputChange()" showSecondsTimer="true" #dtStart></owl-date-time>
+        </mat-form-field>
+        <span class="spacer"></span>
+        <mat-form-field>
+          <input matInput [min]="entryEditForm.value.startTime" [owlDateTime]="dtEnd" placeholder="End Date" formControlName="endTime"
+            (input)="dateInputChange($event.target.value)" required>
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" [owlDateTimeTrigger]="dtEnd">
+            <mat-icon>calendar_today</mat-icon>
+          </button>
+          <owl-date-time (afterPickerClosed)="dateInputChange()" showSecondsTimer="true" #dtEnd></owl-date-time>
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div *ngIf="validationErrors" class="validation-errors">
+      <div *ngFor="let error of validationErrors">
+        <mat-hint class="error-message">{{error}}</mat-hint>
+        <br>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button mat-raised-button color="primary" (click)="updateTimeEntry()">Save and Complete</button>
+      <button mat-raised-button (click)="dismiss()">Cancel</button>
+      <button mat-raised-button class="danger delete" (click)="deleteTimeEntry(false)">DELETE</button>
+    </div>
+  </div>
+
+  <div *ngIf="showDelete">
+    <mat-card>
+      <h3 class="h-title">Delete Confirmation</h3>
+      <br>
+      <p>Are you sure you want to delete this time entry? It will be deleted forever!!!</p>
+      <br>
+      <button mat-raised-button class="danger delete" (click)="deleteTimeEntry(true)">CONFIRM DELETE</button>
+      <button mat-raised-button (click)="showDelete = false;">Cancel</button>
+    </mat-card>
+
+  </div>
+
+</content>

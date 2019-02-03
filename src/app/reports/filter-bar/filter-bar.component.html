@@ -1,0 +1,21 @@
+<div class="report-filters">
+  <mat-card>
+    <form [formGroup]="filtersForm" class="filters-form">
+      <div class="filters">
+        <mat-form-field class="filters-margin">
+          <input matInput [matDatepicker]="startPicker" placeholder="Start Date" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="filters-margin">
+          <input matInput [matDatepicker]="endPicker" placeholder="End Date" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="actions">
+        <button mat-raised-button color="accent" type="button" (click)="applyFilters()">{{buttonText}}</button>
+      </div>
+    </form>
+  </mat-card>
+</div>

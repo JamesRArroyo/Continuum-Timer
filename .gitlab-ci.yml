@@ -1,0 +1,73 @@
+image: node:8.11.3-alpine
+before_script:
+# Getting locales to work. No meme, it really requires 6 commands. Jesus.
+#- apk update 
+#- apt-get install curl
+#- curl -sL https://deb.nodesource.com/setup_4.x | bash
+#- apk add npm
+  # Symlink it because default apt installs to node (m-muh naming conventions)
+- npm install -g npm >backup.log 2>&1;
+- mkdir private_keys
+- mkdir node/backup_stage
+#set timezone 
+- apk add --no-cache tzdata
+- export TZ='America/Chicago'
+- date
+- echo "$continuum_timer_firebase_admin_service_key" >> private_keys/firebase-admin-service-key.json
+
+
+
+cache:
+  paths: 
+    - node/node_modules/
+
+
+.node: &node
+  image: node:8.11.3-alpine
+  before_script:
+    - npm install
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+    - node_modules/
+
+stages:
+  - deploy
+
+deploy_develop:
+  except:
+    - schedules
+  stage: deploy
+  environment:
+    name: develop
+  <<: *node
+  script:
+    - npm run build -- -e $CI_ENVIRONMENT_SLUG
+    - npm run deploy
+  only:
+    - develop
+
+deploy_production:
+  except:
+    - schedules
+  stage: deploy
+  environment:
+    name: production
+  <<: *node
+  script:
+    - npm run build -- -e $CI_ENVIRONMENT_SLUG
+    - npm run deploy
+  only:
+    - master
+
+downloader:
+  only:
+    - schedules
+  stage: deploy
+  script:
+    -  cd node; npm install >backup.log 2>&1;  node index.js; cd ..
+  artifacts:
+    paths:
+      - node/backup_stage
+  only:
+    - backup 

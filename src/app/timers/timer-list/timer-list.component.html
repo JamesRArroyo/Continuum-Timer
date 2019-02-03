@@ -1,0 +1,36 @@
+<content class="wrapper">
+  <div class="main">
+    <mat-toolbar color="accent">
+      <mat-toolbar-row>
+        <span>My Timers</span>
+        <span class="header-spacer"></span>
+        <button mat-fab color="" [ngClass]="{'btn-pulse': timers?.length==0}" [matMenuTriggerFor]="newTimerMenu" matTooltip="Create a new timer"
+          matTooltipPosition="above">
+          <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+        </button>
+        <mat-menu #newTimerMenu="matMenu">
+          <button mat-menu-item (click)="createTimerDialog('custom')">
+            <i class="fas fa-stopwatch fa-1x"></i>
+            Custom</button>
+          <button mat-menu-item (click)="createTimerDialog('gitlab')">
+            <i class="fab fa-gitlab fa-1x"></i>
+            Gitlab</button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-card>
+      <mat-card-content>
+        <div *ngFor="let timer of timers">
+          <app-timer-detail style="margin: 10px" [timer]="timer"></app-timer-detail>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+
+    <mat-card *ngIf="timers?.length==0" class="well">
+      <h2>You have no timers... Try creating one!</h2>
+    </mat-card>
+  </div>
+
+</content>

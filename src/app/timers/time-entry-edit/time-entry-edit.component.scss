@@ -1,0 +1,47 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container>* {
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  .h-title {
+    grid-column: 1 / span 9;
+  }
+  .h-chip {
+    grid-column: 11 / span 2;
+  }
+}
+
+.footer {
+  margin-top: 20px;
+  display: flex;
+  .delete {
+    margin-left: auto;
+  }
+}
+
+.spacer {
+  margin-left: 60px;
+}
+
+.mat-hint {
+  color: rgb(244, 86, 36) !important;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 600px) {
+  .header {
+    display: flex;
+    .h-chip {
+      margin-left: auto;
+    }
+  }
+}

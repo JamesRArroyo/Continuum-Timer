@@ -1,0 +1,20 @@
+$circle-width: 75px;
+$circle-height: 75px;
+.circle-size {
+  width: $circle-width;
+  height: $circle-height;
+}
+
+.img {
+  grid-row: 2;
+  display: flex;
+  width: $circle-width;
+  height: $circle-height;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.grayed-out {
+  opacity: 0.3;
+  filter: alpha(opacity=40);
+}

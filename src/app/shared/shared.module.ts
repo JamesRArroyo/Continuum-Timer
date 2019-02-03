@@ -1,0 +1,87 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  MatBottomSheetModule,
+  MatTooltipModule,
+  MatMenuModule,
+  MatInputModule,
+  MatSelectModule,
+  MatFormFieldModule,
+  MatDialogModule,
+  MatChipsModule,
+  MatToolbarModule,
+  MatCardModule,
+  MatButtonModule,
+  MatIconModule,
+  MatDividerModule,
+  MatListModule,
+  MatSortModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatExpansionModule,
+} from '@angular/material';
+import { SecondsToTimePipe } from './seconds-to-time.pipe';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { OrderByPipe } from './order-by.pipe';
+
+@NgModule({
+  declarations: [SecondsToTimePipe, OrderByPipe],
+  imports: [
+    CommonModule,
+
+    /* Material Imports */
+    MatMenuModule,
+    MatTooltipModule,
+    MatBottomSheetModule,
+    MatInputModule,
+    MatSelectModule,
+    MatListModule,
+    MatDividerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+
+    NgxChartsModule,
+  ],
+  exports: [
+    MatMenuModule,
+    MatTooltipModule,
+    MatBottomSheetModule,
+    MatInputModule,
+    MatSelectModule,
+    MatListModule,
+    MatDividerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+    SecondsToTimePipe,
+    OrderByPipe,
+    NgxChartsModule,
+  ],
+})
+export class SharedModule {}

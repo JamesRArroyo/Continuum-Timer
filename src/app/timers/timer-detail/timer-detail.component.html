@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="icon">
+    <a href="{{timer.webUrl}}" target="_blank">
+      <i [ngClass]="['fa-3x', timer.icon]"></i>
+    </a>
+  </div>
+  <div class="details">
+    <h3>{{timer.title}}</h3>
+  </div>
+  <div class="details-entries">
+    <h5>Entries: &nbsp;</h5>
+    <mat-chip-list>
+      <mat-chip [ngClass]="{'accent-chip': entry.modified}" *ngFor="let entry of timeEntries" (click)="openTimeEntryEdit(entry)"
+        selected="true" [matTooltip]="timeEntryToolTip(entry)" [matTooltipPosition]="tooltipPosition">
+        <i class="fas fa-clock fa-1x"></i>&nbsp; {{duration(entry.startTime, entry.endTime) | secondsToTime}}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="timer-notes">
+    <form [formGroup]="timerForm" class="form-container example-container">
+      <div *ngFor="let date of entryDates">
+        <mat-form-field appearance="outline">
+          <textarea [formControlName]="date" matInput matTextareaAutosize matAutosizeMinRows=4 matAutosizeMaxRows=5></textarea>
+          <mat-label>
+            <i class="fab fa-gitlab fa-1x"></i>&nbsp;
+            <i>Notes - {{dateToDay(date)}} {{date}}</i>
+          </mat-label>
+        </mat-form-field>
+      </div>
+
+    </form>
+  </div>
+  <div class="timer-actions">
+    <button *ngIf="!timer.active" mat-raised-button color="accent" (click)="startTimer()" matTooltip="Start this timer" [matTooltipPosition]="tooltipPosition">Start</button>
+    <button *ngIf="timer.active" mat-raised-button color="primary" (click)="pauseTimer()" matTooltip="Pause this timer" [matTooltipPosition]="tooltipPosition">Pause</button>
+    <button mat-raised-button color="warn" (click)="finishTimer()" matTooltip="Close this timer" [matTooltipPosition]="tooltipPosition">Finish</button>
+  </div>
+
+  <div class="total-time">
+    <h2 matTooltip="Total Time" [matTooltipPosition]="tooltipPosition">{{timeEntrySum + timer.runningTime | secondsToTime}}</h2>
+  </div>
+
+</div>

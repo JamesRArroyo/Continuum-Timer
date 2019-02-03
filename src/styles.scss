@@ -1,0 +1,70 @@
+@import 'themes/custom-theme.scss';
+@include angular-material-theme($custom-dark-theme);
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+$danger: #d43838;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #303030;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.danger {
+  background-color: $danger;
+}
+
+.dialog-wrapper .mat-dialog-container {
+  max-width: none;
+  width: 100vw;
+  height: 100vh;
+}
+
+@media screen and (max-width: 600px) {
+  .dialog-wrapper .mat-dialog-container {
+    padding: 0px 12px;
+  }
+}
+
+.snackbar-red {
+  background-color: $danger;
+}
+
+.snackbar-primary {
+  background: $primary;
+  .mat-button,
+  .mat-icon-button,
+  .mat-stroked-button {
+    color: inherit;
+    background: #00000038;
+  }
+}
+
+/* SCROLLBAR */
+
+/* **************** */
+
+::-webkit-scrollbar {
+  width: 0.75em;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #676767d1;
+  border-radius: 10px;
+}
+
+/* END SCROLLBAR */

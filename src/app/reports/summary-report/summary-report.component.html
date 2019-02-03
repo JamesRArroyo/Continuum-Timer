@@ -1,0 +1,80 @@
+<content class="wrapper">
+  <div class="main white" *ngIf="!loading">
+
+    <!-- Report Header -->
+    <div class="report-header">
+      <h1 class="title">Summary Report - {{ this.user.name }}</h1>
+      <div class="saved-reports">
+        <mat-form-field>
+          <mat-select placeholder="Saved Reports" (selectionChange)="loadSavedReport($event)">
+            <mat-option *ngFor="let report of savedReports" [value]="report.id">
+              {{report.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Report Filters -->
+    <app-filter-bar buttonText="Generate Report" [startDate]="filters.startDate" [endDate]="filters.endDate" (filters)="generateSummary($event)"></app-filter-bar>
+
+
+
+    <!-- Report Body -->
+    <div class="report-body" *ngIf="timerIds.length !== 0">
+      <!-- Report Summary -->
+      <div class="report-summary">
+        <h2 class="total-time">Total Time: {{totalTime | secondsToTime}}</h2>
+      </div>
+
+
+      <!-- Report Graph -->
+      <div class="report-graph">
+        <ngx-charts-bar-vertical class="graph" [results]="graphData" [xAxis]="showXAxis" [yAxis]="showYAxis" [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [yScaleMax]="yScaleMax" [showDataLabel]="showDataLabel">
+        </ngx-charts-bar-vertical>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Report Detail Cards -->
+      <div class="report-detail-cards">
+        <div class="entryGroups">
+          <div *ngFor="let entryGroup of entryGroups" class="entry-group-card">
+            <mat-toolbar class="card-header" color="accent">
+              <mat-toolbar-row class="header">
+                <h3 class="title">{{entryGroup.day}}</h3>
+                <h3 class="total">{{addTimeEntries(entryGroup.entries) | secondsToTime}}</h3>
+              </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-card class="body no-padding-override">
+              <mat-accordion *ngFor="let timerEntries of entryGroup.byTimer" class="icon-end accordion-group">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>{{returnTimer(timerEntries[0].timerId, 'title')}}</mat-panel-title>
+                    <mat-panel-description>&nbsp;
+                      <h4 class="icon-margin">{{addTimeEntries(timerEntries) | secondsToTime}}</h4>
+                      <!--<mat-icon class="icon-margin">account_circle</mat-icon>-->
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <!-- Expansion body -->
+                  <div class="expansion-body">
+                    <div class="description">{{getEntryNotes(timerEntries[0].timerId, entryGroup.day)}}</div>
+                    <mat-list class="entries" role="list">
+                      <mat-list-item *ngFor="let entry of timerEntries" role="listitem" [matTooltip]="timeEntryToolTip(entry)" matTooltipPosition="above">{{duration(entry.startTime, entry.endTime) | secondsToTime}}</mat-list-item>
+                    </mat-list>
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </mat-card>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</content>
+
+<app-loading *ngIf="loading" label="Generating..."></app-loading>

@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>New Custom Timer</h1>
+<div mat-dialog-content>
+  <div class="card">
+    <div mat-dialog-content>
+      <form [formGroup]="timerForm" class="example-container">
+        <mat-form-field>
+          <input formControlName="title" matInput placeholder="Title">
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="createTimer()" cdkFocusInitial>Create Timer</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="">Cancel</button>
+</div>

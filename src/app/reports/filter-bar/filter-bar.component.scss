@@ -1,0 +1,24 @@
+.report-filters {
+  grid-row: 2;
+  mat-card {
+    padding: 0px !important;
+  }
+  .filters-margin {
+    margin-right: 20px;
+  }
+  .filters-form {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .filters {
+    display: flex;
+    justify-content: flex-start;
+    margin: 15px;
+    grid-column: 1 / span 10;
+  }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    grid-column: 11 / span 2;
+  }
+}
